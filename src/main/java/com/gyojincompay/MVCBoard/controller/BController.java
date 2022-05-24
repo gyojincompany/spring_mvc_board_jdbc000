@@ -2,6 +2,8 @@ package com.gyojincompay.MVCBoard.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +16,22 @@ import com.gyojincompay.MVCBoard.command.BModifyCommand;
 import com.gyojincompay.MVCBoard.command.BReplayCommand;
 import com.gyojincompay.MVCBoard.command.BReplyViewCommand;
 import com.gyojincompay.MVCBoard.command.BWriteCommand;
+import com.gyojincompay.MVCBoard.util.Constant;
 
 @Controller
 public class BController {
 	
 	BCommand command = null;
 	
+	private JdbcTemplate template;	
+	
+	@Autowired
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+		Constant.template = this.template;
+	}
+
+
 	@RequestMapping("/")
 	public String root(Model model) {
 		
